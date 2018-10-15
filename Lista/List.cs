@@ -99,6 +99,24 @@ namespace Lista
 			}
         }
 
+        public void InsertAfterIndex(int index, T value)
+        {
+			if (index >= size)
+				throw new IndexOutOfRangeException("Element with given index does not exist");
+
+            Node<T> temp = head;
+            for (int i = 0; i < index; i++)
+            {
+                temp = temp.Next;
+            }
+
+            Node<T> newNode = new Node<T>(value);
+            newNode.Next = temp.Next;
+            temp.Next = newNode;
+
+            size++;
+        }
+
         public T FindAtIndex(int index)
         {
             if (index >= size)

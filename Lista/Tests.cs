@@ -12,7 +12,8 @@ namespace Lista
 
         public static bool RunAllTests()
         {
-            return ToStringTest() && AddRemoveTest() && AddRemoveTest(50) && PushBackTest() && PushBackTest();
+            return ToStringTest() && AddRemoveTest() && AddRemoveTest(50) && PushBackTest() 
+                && PushBackTest() && InsertAfterIndexTest();
         }
 
         public static bool ToStringTest()
@@ -25,6 +26,19 @@ namespace Lista
 
             return list.ToString() == "3->24->-4";
 		}
+
+        public static bool InsertAfterIndexTest()
+        {
+			List<int> list = new List<int>();
+
+			list.PushBack(3);
+			list.PushBack(24);
+			list.PushBack(17);
+
+            list.InsertAfterIndex(1, 8);
+
+            return list.ToString() == "3->24->8->17";
+        }
 
         public static bool PushBackTest()
         {

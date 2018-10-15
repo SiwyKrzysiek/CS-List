@@ -18,6 +18,7 @@ namespace Lista
             list.PushBack(9);
 
             list.RemoveAtIndex(2);
+            list.InsertAfterIndex(0, 40);
 
             Console.WriteLine(list);
 
