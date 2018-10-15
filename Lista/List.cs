@@ -31,6 +31,21 @@ namespace Lista
             }
         }
 
+        public T FindAtIndex(int index)
+        {
+            if (index >= size)
+				throw new IndexOutOfRangeException("Element with given index does not exist");
+
+			int currentIndex = 0;
+            for (Node<T> i = head; i != null; i = i.Next)
+            {
+                if (index == currentIndex++)
+                    return i.Value;
+            }
+
+            throw new IndexOutOfRangeException("Element with given index does not exist");
+        }
+
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();

@@ -15,7 +15,9 @@ namespace Lista
 			list.PushBack(11);
             list.PushBack(9);
 
-            Console.WriteLine(list.ToString());
+            Console.WriteLine(list);
+
+            Console.WriteLine(list.FindAtIndex(2));
         }
     }
 }
