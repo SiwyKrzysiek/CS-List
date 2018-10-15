@@ -6,14 +6,16 @@ namespace Lista
     {
         static void Main()
         {
-            Console.WriteLine("Hello world");
-            //string userIput = Console.ReadLine();
-            //Console.WriteLine(userIput);
+            List<int> list = new List<int>();
 
-            Node node = new Node(5);
+			list.PushBack(4);
+			list.PushBack(8);
+			list.PushBack(2);
+			list.PushBack(17);
+			list.PushBack(11);
+            list.PushBack(9);
 
-            if (node.Next == null)
-                Console.WriteLine("node null");
+            Console.WriteLine(list.ToString());
         }
     }
 }
