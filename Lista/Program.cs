@@ -13,7 +13,7 @@ namespace Lista
             Node node = new Node(5);
 
             if (node.Next == null)
-                Console.WriteLine("node is not null");
+                Console.WriteLine("node null");
         }
     }
 }
