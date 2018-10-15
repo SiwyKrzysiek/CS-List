@@ -132,6 +132,19 @@ namespace Lista
             throw new IndexOutOfRangeException("Element with given index does not exist");
         }
 
+        public T RecurentFindAtIndex(int index)
+        {
+            return RecurentHidenFindAtIndex(index, head);
+        }
+
+        private T RecurentHidenFindAtIndex(int index, Node<T> myHead)
+        {
+            if (index > 0)
+                return RecurentHidenFindAtIndex(index - 1, myHead.Next);
+
+            return myHead.Value;
+        }
+
         public T FindElement(T element, Func<T, T, bool> howToCompare)
         {
 			for (Node<T> i = head; i != null; i = i.Next)
