@@ -30,6 +30,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="List.cs" />
+    <Compile Include="Tests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
