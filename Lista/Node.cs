@@ -10,7 +10,6 @@ namespace Lista
         public Node(int value)
         {
             Value = value;
-            Next = null;
         }
     }
 }
