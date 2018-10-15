@@ -12,10 +12,21 @@ namespace Lista
 
         public static bool RunAllTests()
         {
-            return AddRemoveTest() && AddRemoveTest(50) && pushBackTest();
+            return ToStringTest() && AddRemoveTest() && AddRemoveTest(50) && PushBackTest() && PushBackTest();
         }
 
-        public static bool pushBackTest()
+        public static bool ToStringTest()
+        {
+			List<int> list = new List<int>();
+
+			list.PushBack(3);
+			list.PushBack(24);
+			list.PushBack(-4);
+
+            return list.ToString() == "3->24->-4";
+		}
+
+        public static bool PushBackTest()
         {
             int howManyElements = random.Next(300);
             List<int> list = new List<int>();
@@ -26,6 +37,22 @@ namespace Lista
             }
 
             return list.Lenght == howManyElements;
+        }
+
+        public static bool RemoveAtIndexTest()
+        {
+            List<int> list = new List<int>();
+
+			list.PushBack(4);
+			list.PushBack(8);
+			list.PushBack(2);
+			list.PushBack(17);
+			list.PushBack(11);
+			list.PushBack(9);
+
+            list.RemoveAtIndex(2);
+
+            return (list.ToString() == "4->8->17->11->9" && list.Lenght == 5);
         }
 
         public static bool AddRemoveTest(int howManyElementsToAdd = 1)
