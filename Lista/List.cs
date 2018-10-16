@@ -3,16 +3,16 @@ using System.Text;
 
 namespace Lista
 {
+    /// <summary>
+    /// Klasa listy jednokierunkowej.
+    /// Zawiera podstawowe operacje na listach
+    /// </summary>
     public class List<T>
     {
         private Node<T> head;
         private Node<T> tale;
-        private int size;
 
-        public int Lenght
-        {
-            get => size;
-        }
+        public int Lenght { get; private set; }
 
         public List()
         {
@@ -21,7 +21,7 @@ namespace Lista
 
         public void PushBack(T element)
         {
-            size++;
+            Lenght++;
 
             Node<T> newNode = new Node<T>(element);
             if (head == null) //Lista pusta
@@ -39,18 +39,18 @@ namespace Lista
         public void PopFront()
         {
             head = head.Next;
-            size--;
+            Lenght--;
         }
 
         public void PopBack()
         {
-            if (size <= 0)
+            if (Lenght <= 0)
                 throw new InvalidOperationException("Can't pop from empty list");
-            if (size == 1)
+            if (Lenght == 1)
             {
                 head = null;
                 tale = null;
-                size--;
+                Lenght--;
 
                 return;
             }
@@ -65,14 +65,14 @@ namespace Lista
 
             previous.Next = null;
             tale = previous;
-            size--;
+            Lenght--;
         }
 
         public void RemoveAtIndex(int index)
         {
-			if (index >= size)
+			if (index >= Lenght)
 					throw new IndexOutOfRangeException("Element with given index does not exist");
-            if (index == size-1)
+            if (index == Lenght-1)
             {
                 PopBack();
                 return;
@@ -90,7 +90,7 @@ namespace Lista
                 if (currentIndex == index)
                 {
                     previous.Next = i.Next;
-                    size--;
+                    Lenght--;
                     return;
                 }
 
@@ -101,7 +101,7 @@ namespace Lista
 
         public void InsertAfterIndex(int index, T value)
         {
-			if (index >= size)
+			if (index >= Lenght)
 				throw new IndexOutOfRangeException("Element with given index does not exist");
 
             Node<T> temp = head;
@@ -114,12 +114,12 @@ namespace Lista
             newNode.Next = temp.Next;
             temp.Next = newNode;
 
-            size++;
+            Lenght++;
         }
 
         public T FindAtIndex(int index)
         {
-            if (index >= size)
+            if (index >= Lenght)
 				throw new IndexOutOfRangeException("Element with given index does not exist");
 
 			int currentIndex = 0;
