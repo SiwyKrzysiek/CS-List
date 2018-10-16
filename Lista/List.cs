@@ -36,6 +36,23 @@ namespace Lista
             }
         }
 
+        public void PushFront(T element)
+        {
+            Lenght++;
+
+            Node<T> newNode = new Node<T>(element);
+            if (head == null) //Lista pusta
+            {
+                head = newNode;
+                tale = newNode;
+            }
+            else
+            {
+                newNode.Next = head;
+                head = newNode;
+            }
+        }
+
         public void PopFront()
         {
             head = head.Next;
