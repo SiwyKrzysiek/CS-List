@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
+
 namespace Lista
 {
     public class Tests
     {
-        private static Random random = new Random();
+        private static readonly Random random = new Random();
 
         public Tests()
         {
@@ -84,6 +86,48 @@ namespace Lista
 			}
 
             return list.Lenght == 0;
+        }
+
+        public static void SpeedTest()
+        {
+            const int howManyTestsPerSieres = 100;
+            Tuple<long, long>[] results = new Tuple<long, long>[howManyTestsPerSieres];
+
+            const int shortListSize = 2000;
+            for (int i = 0; i < howManyTestsPerSieres; i++)
+            {
+                List<int> list = GenerateRandomList(shortListSize);
+                int indexToFind = random.Next(shortListSize);
+
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                list.FindAtIndex(indexToFind);
+                stopwatch.Stop();
+                long timeOfIterationalSearch = stopwatch.ElapsedTicks;
+
+                stopwatch = Stopwatch.StartNew();
+                list.RecurentFindAtIndex(indexToFind);
+                stopwatch.Stop();
+                long timeOfRecursiveSearch = stopwatch.ElapsedTicks;
+
+                results[i] = Tuple.Create(timeOfIterationalSearch, timeOfRecursiveSearch);
+            }
+
+            foreach (var result in results)
+            {
+                Console.WriteLine("{0} {1}", result.Item1, result.Item2);
+            }
+        }
+
+        public static List<int> GenerateRandomList(int length)
+        {
+            List<int> list = new List<int>();
+
+            for (int i = 0; i < length; i++)
+            {
+                list.PushBack(random.Next(1000000));
+            }
+
+            return list;
         }
     }
 }
