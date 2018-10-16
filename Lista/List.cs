@@ -12,6 +12,9 @@ namespace Lista
         private Node<T> head;
         private Node<T> tale;
 
+        /// <summary>
+        /// Ilosc elementow listy
+        /// </summary>
         public int Lenght { get; private set; }
 
         public List()
@@ -19,6 +22,9 @@ namespace Lista
             //Pola sa automatycznie inicjalizowane poprawnymi wartosciami
         }
 
+        /// <summary>
+        /// Dodaje element na koniec listy
+        /// </summary>
         public void PushBack(T element)
         {
             Lenght++;
@@ -36,6 +42,9 @@ namespace Lista
             }
         }
 
+        /// <summary>
+        /// Dodaje element na poczatek listy
+        /// </summary>
         public void PushFront(T element)
         {
             Lenght++;
@@ -53,12 +62,18 @@ namespace Lista
             }
         }
 
+        /// <summary>
+        /// Usuwa z listy pierwszy element
+        /// </summary>
         public void PopFront()
         {
             head = head.Next;
             Lenght--;
         }
 
+        /// <summary>
+        /// Usuwa z listy ostatni element
+        /// </summary>
         public void PopBack()
         {
             if (Lenght <= 0)
@@ -85,6 +100,9 @@ namespace Lista
             Lenght--;
         }
 
+        /// <summary>
+        /// Usuwa z lisyt element o podanym indeksie
+        /// </summary>
         public void RemoveAtIndex(int index)
         {
 			if (index >= Lenght)
@@ -116,6 +134,9 @@ namespace Lista
 			}
         }
 
+        /// <summary>
+        /// Wstawia element do listy po elemencie o danym indeksie
+        /// </summary>
         public void InsertAfterIndex(int index, T value)
         {
 			if (index >= Lenght)
@@ -208,6 +229,9 @@ namespace Lista
             throw new Exception("No element found");
         }
 
+        /// <summary>
+        /// Zwraca postac tekstowa listy
+        /// </summary>
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
