@@ -1,6 +1,8 @@
 # Autosave files
 *~
 
+.vs/
+
 # exe
 *.exe
 
