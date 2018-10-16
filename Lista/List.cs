@@ -134,6 +134,9 @@ namespace Lista
             Lenght++;
         }
 
+        /// <summary>
+        /// Zwraca element o podanym indeksie
+        /// </summary>
         public T FindAtIndex(int index)
         {
             if (index >= Lenght)
@@ -149,8 +152,15 @@ namespace Lista
             throw new IndexOutOfRangeException("Element with given index does not exist");
         }
 
+        /// <summary>
+        /// Zwraca element o podanym indeksie.
+        /// Dziala rekurencyjnie
+        /// </summary>
         public T RecurentFindAtIndex(int index)
         {
+            if (index >= Lenght)
+                throw new IndexOutOfRangeException("Element with given index does not exist");
+
             return RecurentHidenFindAtIndex(index, head);
         }
 
@@ -162,6 +172,31 @@ namespace Lista
             return myHead.Value;
         }
 
+        /// <summary>
+        /// Zwraca wartosc ktora wraz z element spelni funkcje howToCompare.
+        /// Dziala rekurencyjnie
+        /// </summary>
+        /// <param name="howToCompare">Funkcja do porownanie elementow</param>
+        public T RecurentFindElement(T element, Func<T, T, bool> howToCompare)
+        {
+            return RecurentHiddenFindElement(element, howToCompare, head);
+        }
+
+        private T RecurentHiddenFindElement(T element, Func<T, T, bool> howToCompare, Node<T> myHead)
+        {
+            if (howToCompare(myHead.Value, element))
+                return myHead.Value;
+
+            if (myHead.Next != null)
+                return RecurentHiddenFindElement(element, howToCompare, myHead.Next);
+
+            throw new Exception("No element found");
+        }
+
+        /// <summary>
+        /// Zwraca wartosc ktora wraz z element spelni funkcje howToCompare
+        /// </summary>
+        /// <param name="howToCompare">Funkcja do porownanie elementow</param>
         public T FindElement(T element, Func<T, T, bool> howToCompare)
         {
 			for (Node<T> i = head; i != null; i = i.Next)

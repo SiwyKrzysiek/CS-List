@@ -23,8 +23,8 @@ namespace Lista
             Console.WriteLine(list);
 
 			//Console.WriteLine(list.FindAtIndex(2));
-			Console.WriteLine(list.RecurentFindAtIndex(2));
-			//Console.WriteLine(list.FindElement(11, (arg1, arg2) => arg1==arg2));
+			//Console.WriteLine(list.RecurentFindAtIndex(2));
+			Console.WriteLine(list.RecurentFindElement(11, (arg1, arg2) => arg1==arg2));
 		}
     }
 }
