@@ -103,6 +103,9 @@ namespace Lista
             {
                 Console.WriteLine("{0} {1}", result.Item1, result.Item2);
             }
+
+            Tuple<double, double> means = CalculateMeanOfResults(results);
+            Console.WriteLine("\nSredni czas wyszukania iteracyjngo: {0}\nSredni czas wyszukania rekurencyjnego: {1}", means.Item1, means.Item2);
         }
 
         /// <summary>
