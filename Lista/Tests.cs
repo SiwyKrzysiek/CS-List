@@ -90,26 +90,13 @@ namespace Lista
 
         public static void SpeedTest()
         {
-            const int howManyTestsPerSieres = 100;
-            Tuple<long, long>[] results = new Tuple<long, long>[howManyTestsPerSieres];
+            const int howManyTestsPerSires = 1000;
+            Tuple<long, long>[] results = new Tuple<long, long>[howManyTestsPerSires];
 
             const int shortListSize = 2000;
-            for (int i = 0; i < howManyTestsPerSieres; i++)
+            for (int i = 0; i < howManyTestsPerSires; i++)
             {
-                List<int> list = GenerateRandomList(shortListSize);
-                int indexToFind = random.Next(shortListSize);
-
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                list.FindAtIndex(indexToFind);
-                stopwatch.Stop();
-                long timeOfIterationalSearch = stopwatch.ElapsedTicks;
-
-                stopwatch = Stopwatch.StartNew();
-                list.RecurentFindAtIndex(indexToFind);
-                stopwatch.Stop();
-                long timeOfRecursiveSearch = stopwatch.ElapsedTicks;
-
-                results[i] = Tuple.Create(timeOfIterationalSearch, timeOfRecursiveSearch);
+                results[i] = MeasureSearchTime(shortListSize);
             }
 
             foreach (var result in results)
@@ -118,6 +105,39 @@ namespace Lista
             }
         }
 
+        /// <summary>
+        /// Mierzy czas znalezienie losowego elementu w liscie o podanej dlugosci.
+        /// Testowane jest przeszukanie iteracyjne i rekurencyjne
+        /// </summary>
+        /// <returns>
+        /// Krotka (czas szukania iteracyjnego, czas szukania rekurencyjnego)
+        /// Zwracane wartosci sa w cyklach zegara
+        /// </returns>
+        private static Tuple<long, long> MeasureSearchTime(int listSize)
+        {
+            List<int> list = GenerateRandomList(listSize);
+            int indexToFind = random.Next(listSize);
+
+            long timeOfInternationalSearch;
+            long timeOfRecursiveSearch;
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            list.FindAtIndex(indexToFind);
+            stopwatch.Stop();
+            timeOfInternationalSearch = stopwatch.ElapsedTicks;
+
+            stopwatch = Stopwatch.StartNew();
+            list.RecurentFindAtIndex(indexToFind);
+            stopwatch.Stop();
+            timeOfRecursiveSearch = stopwatch.ElapsedTicks;
+
+            return Tuple.Create(timeOfInternationalSearch, timeOfRecursiveSearch);
+        }
+
+        /// <summary>
+        /// Tworzy liste losowych liczb calokowitych
+        /// </summary>
+        /// <param name="length">Dlugosc generowanej listy</param>
         public static List<int> GenerateRandomList(int length)
         {
             List<int> list = new List<int>();
