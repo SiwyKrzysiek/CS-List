@@ -90,13 +90,20 @@ namespace Lista
 
         public static void FullSpeedTest()
         {
-            const int howManyTestsPerSires = 1000;
+            const int howManyTestsPerSires = 5000;
+            int[] listLengthsToTest = {500, 2000, 6000};
             
-            SingleSpeedTest(6000, howManyTestsPerSires);
+            //SingleSpeedTest(6000, howManyTestsPerSires);
 
-            string message = "Seraia pomiarów wyszukiwania elementu o zadanym indeskie w liście\n" +
-                             "Testowane jest wyszukiwanie iteracyjne i rekurencyjne\n";
+            string message = "Seraia pomiarów wyszukiwania elementu o losowo wybranym indeskie w liście\n" +
+                             "Testowane jest wyszukiwanie iteracyjne i rekurencyjne\n" +
+                             "--------------------------------------------------------------------------\n";
             Console.WriteLine(message);
+
+            foreach (int listLength in listLengthsToTest)
+            {
+                SingleSpeedTest(listLength, howManyTestsPerSires);
+            }
         }
 
         /// <summary>
@@ -127,7 +134,8 @@ namespace Lista
                 Console.WriteLine($"{results[i].Item1} {results[i].Item2}");
             }
 
-            Console.WriteLine($"\nSrednie wartosci z {testsAmount} próbek:\n{means.Item1} {means.Item2}");
+            Console.WriteLine($"\nSrednie wartosci z {testsAmount} próbek:\n{means.Item1} {means.Item2}\n" +
+                              "-------------------------------\n");
         }
 
         /// <summary>
