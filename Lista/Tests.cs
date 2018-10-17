@@ -106,6 +106,27 @@ namespace Lista
         }
 
         /// <summary>
+        /// Liczy srednia z wynikow pomiarow
+        /// </summary>
+        /// <returns>Krotka (srednia iteracji, srednia rekurencji)</returns>
+        public static Tuple<double, double> CalculateMeanOfResults(Tuple<long, long>[] results)
+        {
+            long sumOfIterationTimes = 0;
+            long sumOfRecursiveTimes = 0;
+
+            foreach (Tuple<long, long> result in results)
+            {
+                sumOfIterationTimes += result.Item1;
+                sumOfRecursiveTimes += result.Item2;
+            }
+
+            double iterationsMean = (double) sumOfIterationTimes / results.Length;
+            double recursivesMean = (double) sumOfRecursiveTimes / results.Length;
+
+            return Tuple.Create(iterationsMean, recursivesMean);
+        }
+
+        /// <summary>
         /// Mierzy czas znalezienie losowego elementu w liscie o podanej dlugosci.
         /// Testowane jest przeszukanie iteracyjne i rekurencyjne
         /// </summary>
