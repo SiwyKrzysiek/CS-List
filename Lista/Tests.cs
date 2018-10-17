@@ -94,9 +94,17 @@ namespace Lista
             
             SingleSpeedTest(6000, howManyTestsPerSires);
 
-            
+            string message = "Seraia pomiarów wyszukiwania elementu o zadanym indeskie w liście\n" +
+                             "Testowane jest wyszukiwanie iteracyjne i rekurencyjne\n";
+            Console.WriteLine(message);
         }
 
+        /// <summary>
+        /// Wykonuje serie pomiarow rekurencyjnego i iteracyjnego wyszukania elementu.
+        /// Wyświetla kilka przykladowych czasow i srednia wszystkich wynikow
+        /// </summary>
+        /// <param name="listSize">Dlugosc testowanej listy</param>
+        /// <param name="testsAmount">Ilosc testow do przeprowadzenia</param>
         private static void SingleSpeedTest(int listSize, int testsAmount)
         {
             Tuple<long, long>[] results = new Tuple<long, long>[testsAmount];
