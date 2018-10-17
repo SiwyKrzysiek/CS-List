@@ -88,24 +88,38 @@ namespace Lista
             return list.Lenght == 0;
         }
 
-        public static void SpeedTest()
+        public static void FullSpeedTest()
         {
             const int howManyTestsPerSires = 1000;
-            Tuple<long, long>[] results = new Tuple<long, long>[howManyTestsPerSires];
+            
+            SingleSpeedTest(6000, howManyTestsPerSires);
 
-            const int shortListSize = 2000;
-            for (int i = 0; i < howManyTestsPerSires; i++)
+            
+        }
+
+        private static void SingleSpeedTest(int listSize, int testsAmount)
+        {
+            Tuple<long, long>[] results = new Tuple<long, long>[testsAmount];
+
+            for (int i = 0; i < testsAmount; i++)
             {
-                results[i] = MeasureSearchTime(shortListSize);
+                results[i] = MeasureSearchTime(listSize);
             }
-
-            foreach (var result in results)
-            {
-                Console.WriteLine("{0} {1}", result.Item1, result.Item2);
-            }
-
             Tuple<double, double> means = CalculateMeanOfResults(results);
-            Console.WriteLine("\nSredni czas wyszukania iteracyjngo: {0}\nSredni czas wyszukania rekurencyjnego: {1}", means.Item1, means.Item2);
+
+            int resultsToDisplay = Math.Min(10, testsAmount); //Wyswietlam co najwyzej 10 wynikow
+
+            string beginningMessage = $"Test dla listy dlugosci {listSize}\n\n" + 
+                                        "Przykladowe wyniki:\n" +
+                                        "<czas iteracyjnego> <czas rekurencyjnego>\n";
+            Console.WriteLine(beginningMessage);
+
+            for (int i = 0; i < resultsToDisplay; i++)
+            {
+                Console.WriteLine($"{results[i].Item1} {results[i].Item2}");
+            }
+
+            Console.WriteLine($"\nSrednie wartosci z {testsAmount} próbek:\n{means.Item1} {means.Item2}");
         }
 
         /// <summary>
