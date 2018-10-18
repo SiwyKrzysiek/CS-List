@@ -111,41 +111,110 @@ namespace Lista
         /// <summary>
         /// Sprawdza ktore przeszukiwanie listy jest szybsze
         /// </summary>
-        public static void SpeedTest()
+        public static void FullSpeedTest()
         {
-            const int howManyTestsPerSieres = 100;
-            Tuple<long, long>[] results = new Tuple<long, long>[howManyTestsPerSieres];
+            const int howManyTestsPerSires = 5000;
+            int[] listLengthsToTest = {500, 2000, 6000};
+            
+            //SingleSpeedTest(6000, howManyTestsPerSires);
 
-            const int shortListSize = 2000;
-            for (int i = 0; i < howManyTestsPerSieres; i++)
+            string message = "Seraia pomiarów wyszukiwania elementu o losowo wybranym indeskie w liście\n" +
+                             "Testowane jest wyszukiwanie iteracyjne i rekurencyjne\n" +
+                             "--------------------------------------------------------------------------\n";
+            Console.WriteLine(message);
+
+            foreach (int listLength in listLengthsToTest)
             {
-                List<int> list = GenerateRandomList(shortListSize);
-                int indexToFind = random.Next(shortListSize);
-
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                list.FindAtIndex(indexToFind);
-                stopwatch.Stop();
-                long timeOfIterationalSearch = stopwatch.ElapsedTicks;
-
-                stopwatch = Stopwatch.StartNew();
-                list.RecurentFindAtIndex(indexToFind);
-                stopwatch.Stop();
-                long timeOfRecursiveSearch = stopwatch.ElapsedTicks;
-
-                results[i] = Tuple.Create(timeOfIterationalSearch, timeOfRecursiveSearch);
-            }
-
-            foreach (var result in results)
-            {
-                Console.WriteLine("{0} {1}", result.Item1, result.Item2);
+                SingleSpeedTest(listLength, howManyTestsPerSires);
             }
         }
 
         /// <summary>
-        /// Generates the random list.
+        /// Wykonuje serie pomiarow rekurencyjnego i iteracyjnego wyszukania elementu.
+        /// Wyświetla kilka przykladowych czasow i srednia wszystkich wynikow
         /// </summary>
-        /// <returns>The random list.</returns>
-        /// <param name="length">Length</param>
+        /// <param name="listSize">Dlugosc testowanej listy</param>
+        /// <param name="testsAmount">Ilosc testow do przeprowadzenia</param>
+        private static void SingleSpeedTest(int listSize, int testsAmount)
+        {
+            Tuple<long, long>[] results = new Tuple<long, long>[testsAmount];
+
+            for (int i = 0; i < testsAmount; i++)
+            {
+                results[i] = MeasureSearchTime(listSize);
+            }
+            Tuple<double, double> means = CalculateMeanOfResults(results);
+
+            int resultsToDisplay = Math.Min(10, testsAmount); //Wyswietlam co najwyzej 10 wynikow
+
+            string beginningMessage = $"Test dla listy dlugosci {listSize}\n\n" + 
+                                        "Przykladowe wyniki:\n" +
+                                        "<czas iteracyjnego> <czas rekurencyjnego>\n";
+            Console.WriteLine(beginningMessage);
+
+            for (int i = 0; i < resultsToDisplay; i++)
+            {
+                Console.WriteLine($"{results[i].Item1} {results[i].Item2}");
+            }
+
+            Console.WriteLine($"\nSrednie wartosci z {testsAmount} próbek:\n{means.Item1} {means.Item2}\n" +
+                              "-------------------------------\n");
+        }
+
+        /// <summary>
+        /// Liczy srednia z wynikow pomiarow
+        /// </summary>
+        /// <returns>Krotka (srednia iteracji, srednia rekurencji)</returns>
+        public static Tuple<double, double> CalculateMeanOfResults(Tuple<long, long>[] results)
+        {
+            long sumOfIterationTimes = 0;
+            long sumOfRecursiveTimes = 0;
+
+            foreach (Tuple<long, long> result in results)
+            {
+                sumOfIterationTimes += result.Item1;
+                sumOfRecursiveTimes += result.Item2;
+            }
+
+            double iterationsMean = (double) sumOfIterationTimes / results.Length;
+            double recursivesMean = (double) sumOfRecursiveTimes / results.Length;
+
+            return Tuple.Create(iterationsMean, recursivesMean);
+        }
+
+        /// <summary>
+        /// Mierzy czas znalezienie losowego elementu w liscie o podanej dlugosci.
+        /// Testowane jest przeszukanie iteracyjne i rekurencyjne
+        /// </summary>
+        /// <returns>
+        /// Krotka (czas szukania iteracyjnego, czas szukania rekurencyjnego)
+        /// Zwracane wartosci sa w cyklach zegara
+        /// </returns>
+        private static Tuple<long, long> MeasureSearchTime(int listSize)
+        {
+            List<int> list = GenerateRandomList(listSize);
+            int indexToFind = random.Next(listSize);
+
+            long timeOfInternationalSearch;
+            long timeOfRecursiveSearch;
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            list.FindAtIndex(indexToFind);
+            stopwatch.Stop();
+            timeOfInternationalSearch = stopwatch.ElapsedTicks;
+
+            stopwatch = Stopwatch.StartNew();
+            list.RecurentFindAtIndex(indexToFind);
+            stopwatch.Stop();
+            timeOfRecursiveSearch = stopwatch.ElapsedTicks;
+
+            return Tuple.Create(timeOfInternationalSearch, timeOfRecursiveSearch);
+        }
+
+        /// <summary>
+        /// Tworzy liste losowych liczb calokowitych
+        /// </summary>
+        /// <param name="length">Dlugosc generowanej listy</param>
         public static List<int> GenerateRandomList(int length)
         {
             List<int> list = new List<int>();
