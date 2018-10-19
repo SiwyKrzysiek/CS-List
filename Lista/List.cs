@@ -194,35 +194,35 @@ namespace Lista
         }
 
         /// <summary>
-        /// Zwraca wartosc ktora wraz z element spelni funkcje howToCompare.
+        /// Zwraca wartosc ktora wraz z element spelni funkcje whatToFind.
         /// Dziala rekurencyjnie
         /// </summary>
-        /// <param name="howToCompare">Funkcja do porownanie elementow</param>
-        public T RecurentFindElement(T element, Func<T, T, bool> howToCompare)
+        /// <returns>Pierwszy element spelniajacy funkcje</returns>
+        public T RecurentFindElement(Func<T, bool> whatToFind)
         {
-            return RecurentHiddenFindElement(element, howToCompare, head);
+            return RecurentHiddenFindElement(whatToFind, head);
         }
 
-        private T RecurentHiddenFindElement(T element, Func<T, T, bool> howToCompare, Node<T> myHead)
+        private T RecurentHiddenFindElement(Func<T, bool> whatToFind, Node<T> myHead)
         {
-            if (howToCompare(myHead.Value, element))
+            if (whatToFind(myHead.Value))
                 return myHead.Value;
 
             if (myHead.Next != null)
-                return RecurentHiddenFindElement(element, howToCompare, myHead.Next);
+                return RecurentHiddenFindElement(whatToFind, myHead.Next);
 
             throw new Exception("No element found");
         }
 
         /// <summary>
-        /// Zwraca wartosc ktora wraz z element spelni funkcje howToCompare
-        /// </summary>
-        /// <param name="howToCompare">Funkcja do porownanie elementow</param>
-        public T FindElement(T element, Func<T, T, bool> howToCompare)
+        /// Zwraca wartosc ktora wraz z element spelni funkcje whatToFind
+        /// </summary
+        /// <returns>Pierwszy element spelniajacy funkcje</returns>
+        public T FindElement(Func<T, bool> whatToFind)
         {
 			for (Node<T> i = head; i != null; i = i.Next)
 			{
-                if (howToCompare(i.Value, element))
+                if (whatToFind(i.Value))
                     return i.Value;
 			}
 
