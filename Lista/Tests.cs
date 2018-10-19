@@ -18,6 +18,10 @@ namespace Lista
                 && PushBackTest() && InsertAfterIndexTest();
         }
 
+        /// <summary>
+        /// Sprawdza przechodzenie listy i wypisanie jej elementow
+        /// </summary>
+        /// <returns><c>true</c> if test was passed correctly<c>false</c> otherwise.</returns>
         public static bool ToStringTest()
         {
 			List<int> list = new List<int>();
@@ -29,7 +33,11 @@ namespace Lista
             return list.ToString() == "3->24->-4";
 		}
 
-        public static bool InsertAfterIndexTest()
+		/// <summary>
+		/// Test wstawiania elementu do listy
+		/// </summary>
+		/// <returns><c>true</c> if test was passed correctly<c>false</c> otherwise.</returns>
+		public static bool InsertAfterIndexTest()
         {
 			List<int> list = new List<int>();
 
@@ -42,7 +50,11 @@ namespace Lista
             return list.ToString() == "3->24->8->17";
         }
 
-        public static bool PushBackTest()
+		/// <summary>
+		/// Test wstawiania elementu na koniec listy
+		/// </summary>
+		/// <returns><c>true</c> if test was passed correctly<c>false</c> otherwise.</returns>
+		public static bool PushBackTest()
         {
             int howManyElements = random.Next(300);
             List<int> list = new List<int>();
@@ -55,7 +67,11 @@ namespace Lista
             return list.Lenght == howManyElements;
         }
 
-        public static bool RemoveAtIndexTest()
+		/// <summary>
+		/// Test usuwania elementu z listy
+		/// </summary>
+		/// <returns><c>true</c> if test was passed correctly<c>false</c> otherwise.</returns>
+		public static bool RemoveAtIndexTest()
         {
             List<int> list = new List<int>();
 
@@ -71,7 +87,11 @@ namespace Lista
             return (list.ToString() == "4->8->17->11->9" && list.Lenght == 5);
         }
 
-        public static bool AddRemoveTest(int howManyElementsToAdd = 1)
+		/// <summary>
+		/// Test zapelnienia i oproznienia listy
+		/// </summary>
+		/// <returns><c>true</c> if test was passed correctly<c>false</c> otherwise.</returns>
+		public static bool AddRemoveTest(int howManyElementsToAdd = 1)
         {
             List<int> list = new List<int>();
 
@@ -88,6 +108,9 @@ namespace Lista
             return list.Lenght == 0;
         }
 
+        /// <summary>
+        /// Sprawdza ktore przeszukiwanie listy jest szybsze
+        /// </summary>
         public static void FullSpeedTest()
         {
             const int howManyTestsPerSires = 5000;
