@@ -7,11 +7,10 @@ namespace Lista
     {
         private static readonly Random random = new Random();
 
-        public Tests()
-        {
-            
-        }
-
+        /// <summary>
+        /// Wykonanie testow jednostkowych
+        /// </summary>
+        /// <returns><c>true</c> if all tests were passed correctly <c>false</c> otherwise.</returns>
         public static bool RunAllTests()
         {
             return ToStringTest() && AddRemoveTest() && AddRemoveTest(50) && PushBackTest() 
